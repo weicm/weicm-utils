@@ -29,7 +29,7 @@ import java.util.Map;
  * <p>Date: 2018/1/30 18:17</p>
  * <p>Desp: 基于Apache fluent-hc 实现的 Http 工具；线程安全</p>
  */
-public class Http {
+public class UHttp {
     //连接超时时间
     private static final Integer CONNECT_TIMEOUT = 10000;
     //读取超时时间
@@ -40,20 +40,20 @@ public class Http {
     private static final Integer PROXY_PORT = null;
     //代理协议
     private static final String PROXY_SCHEMA = null;
-    private static Http instance;
-    private Http(){}
-    public static Http getInstance() {
+    private static UHttp instance;
+    private UHttp(){}
+    public static UHttp getInstance() {
         if (null == instance) {
-            synchronized (Http.class) {
+            synchronized (UHttp.class) {
                 if (null == instance) {
-                    instance = new Http();
+                    instance = new UHttp();
                 }
             }
         }
         return instance;
     }
 
-    private static final Logger log = LoggerFactory.getLogger(Http.class);
+    private static final Logger log = LoggerFactory.getLogger(UHttp.class);
 
     /**
      * <p>Author: weicm</p>

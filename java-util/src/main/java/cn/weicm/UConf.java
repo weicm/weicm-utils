@@ -15,15 +15,15 @@ import java.util.concurrent.TimeUnit;
  * <p>&nbsp;&nbsp;&nbsp;&nbsp; 者获取 classpath 下的文件绝对路径</p>
  * <p>&nbsp;&nbsp;&nbsp;&nbsp; 读取指定绝对路径的文件</p>
  */
-public final class Conf {
-    private static final Logger log = LoggerFactory.getLogger(Conf.class);
+public final class UConf {
+    private static final Logger log = LoggerFactory.getLogger(UConf.class);
     //当前工程的类的字节码对象,用来从jar包内加载当前工程的配置
     private static Class clazz;
     private static final Properties prop = new Properties();
     private static final CountDownLatch latch = new CountDownLatch(1);
     private static final long WAIT_MAX_SECONDES = 5;
 
-    private Conf() {
+    private UConf() {
     }
 
     /**
@@ -34,7 +34,7 @@ public final class Conf {
      * @param files 要加载的配置文件
      */
     public static void init(Class clazz, String... files) {
-        Conf.clazz = clazz;
+        UConf.clazz = clazz;
         try {
             for (int i = 0; i < files.length; i++) {
                 String filePath = files[i].trim();

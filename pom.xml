@@ -13,8 +13,14 @@
         <module>java-util</module>
         <module>http-util</module>
         <module>json-util</module>
-        <module>log-util</module>
+        <module>log4j-util</module>
     </modules>
 
     <name>weicm-utils</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
 </project>

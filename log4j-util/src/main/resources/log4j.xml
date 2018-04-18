@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <!--过滤DEBUG和WARN之间的-->
+    <!-- name: appender 的名字 -->
+    <!-- class: 具体的 appender 实现类 -->
+    <appender name="C" class="org.apache.log4j.ConsoleAppender">
+        <!-- 传递给 appender 构造函数的参数 -->
+        <param name="target" value="System.out"/>
+        <!-- 日志输出布局 -->
+        <layout class="org.apache.log4j.PatternLayout">
+            <!-- 传递给 PatternLayout 构造函数的参数 -->
+            <param name="conversionPattern" value="%d{HH:mm:ss,SSS} %5p [%t] &lt;%c&gt; %C.%M(%F:%L) - %m%n"/>
+        </layout>
+        <!-- 日志输出过滤器 -->
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <!-- 传递给 LevelRangeFilter 构造函数的参数 -->
+            <param name="levelMin" value="TRACE"/>
+            <param name="levelMax" value="INFO"/>
+            <param name="acceptOnMatch" value="true"/>
+        </filter>
+    </appender>
+
+    <!--只过滤INFO-->
+    <appender name="F" class="org.apache.log4j.FileAppender">
+        <!-- 设置日志输出文件名 -->
+        <param name="file" value="${log.dir}/log.txt"/>
+        <!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
+        <param name="append" value="true"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="conversionPattern" value="%d{HH:mm:ss,SSS} %5p [%t] &lt;%c&gt; %C.%M(%F:%L) - %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="INFO"/>
+            <param name="levelMax" value="INFO"/>
+            <param name="acceptOnMatch" value="true"/>
+        </filter>
+    </appender>
+
+    <!--只过滤WARN-->
+    <appender name="R" class="org.apache.log4j.RollingFileAppender">
+        <param name="file" value="${log.dir}/log.txt"/><!-- 设置日志输出文件名 -->
+        <!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
+        <param name="append" value="true"/>
+        <!-- 日志滚动阀值大小 -->
+        <param name="maxFileSize" value="10MB"/>
+        <!-- 日志最大滚动索引，即只能有 maxBackupIndex 个日志文件 -->
+        <param name="maxBackupIndex" value="100"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="conversionPattern" value="%d{HH:mm:ss,SSS} %5p [%t] &lt;%c&gt; %C.%M(%F:%L) - %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="WARN"/>
+            <param name="levelMax" value="WARN"/>
+            <param name="acceptOnMatch" value="true"/>
+        </filter>
+    </appender>
+
+    <!--只过滤ERORR-->
+    <appender name="D" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="${log.dir}/log.txt"/>
+        <!-- 日志文件滚动名称格式 -->
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{HH:mm:ss,SSS} %5p [%t] &lt;%c&gt; %C.%M(%F:%L) - %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="ERROR"/>
+            <param name="levelMax" value="ERROR"/>
+            <param name="acceptOnMatch" value="true"/>
+        </filter>
+    </appender>
+
+    <!-- 这个就是自定义的 logger -->
+    <!-- name: logger 的名称空间 -->
+    <!-- additivity 这个默认是true，即继承父类 root logger; true: 被该logger匹配的日志会同时输出到父logger，false: 则匹配的日志不会输出到父logger -->
+    <logger name="cn.weicm" additivity="false">
+        <!-- 设置输出给 Appender 的最低日志级别 -->
+        <level value="TRACE"/>
+        <!-- 设置日志输出，也就是 Appender -->
+        <appender-ref ref="D"/>
+    </logger>
+
+    <!-- 根logger -->
+    <root>
+        <priority value="TRACE"/>
+        <appender-ref ref="R"/>
+    </root>
+</log4j:configuration>

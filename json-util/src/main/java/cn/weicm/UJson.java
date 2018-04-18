@@ -18,8 +18,8 @@ import java.util.*;
  * <p>Date: 2018/1/26 14:03</p>
  * <p>Desp: 依赖于Jackson 和 JsonPath 的 json 处理工具；线程安全；</p>
  */
-public class Json {
-    private static Logger log = LoggerFactory.getLogger(Json.class);
+public class UJson {
+    private static Logger log = LoggerFactory.getLogger(UJson.class);
     static {
         //设置默认解析器为Jackson
         Configuration.setDefaults(new Configuration.Defaults() {
